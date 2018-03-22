@@ -53,4 +53,4 @@ updateTimeout(String orderId) | Integer |  Move the expiration time further back
 prev(Boolean evaluateTax) | PageReference | Redirects to the previous page in the checkout flow (not the next item)
 next(Boolean evaluateTax) | PageReference | Redirects to the next page in the checkout flow (not the next item)
 evaluateTax() | void | Evaluate tax conditions and correct tax according to changes
-cancelOrder | PageReference | Delete the order and return to the basket
+cancelOrder() | PageReference | Delete the order and return to the basket
