@@ -1,6 +1,10 @@
 # Custom Checkout Page for Learnsmarter Engage
 Following this guide to include a custom page into the checkout process of Learnsmarter Engage. Adding custom pages to your checkout process can allow for extra data collection from your registrants.
 
+This particular example allows you to add dietary and accessibility requirements for every participant of each registration in the order.
+
+![Imgur](https://i.imgur.com/Ku16CKZ.png)
+
 # Requirements
 This sample requires the following:
 
