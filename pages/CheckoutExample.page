@@ -1,0 +1,99 @@
+<apex:page showHeader="false"
+           controller="lsi.CheckoutContainerController"
+           extensions="ExampleController"
+           applyBodyTag="false"
+           applyHtmlTag="false"
+           docType="html-5.0"
+           standardStylesheets="false"
+           action="{!init}">
+    <apex:composition template="lsi__Checkout">
+        <apex:define name="CheckoutContent">
+            
+            <style>
+            	.participant-form {
+                	padding:25px;
+                }
+                
+            	.participant-block {
+                	margin-top:25px;
+                    border:1px solid #e6e6e6;
+                    background:#fbfbfb;
+                    padding:20px;
+                }
+                
+                .participant-name {
+                    font-size:1.2rem;
+                    font-weight:bold;
+                }
+                
+                .participant-field label, .course-name label {
+                	text-transform:uppercase;
+                	margin-bottom:5px;
+                	font-size:0.8rem;
+                }
+                
+                .participant-field textarea {
+                	width:100%;
+                }
+                
+                .course-name {
+                	margin-bottom:15px;
+                	padding:0 20px;
+                }
+                
+                .course-name .data, .course-name .data * {
+                	font-size:1.2rem;
+                }
+            </style>
+            
+            
+            <div class="participant-form">
+                <apex:pageMessages />
+                
+                <apex:form >
+                    <!-- Output Course Details -->
+                    <div class="course-name">
+                        <label>Course Name</label>
+                        <div class="data">
+                            <apex:outputText value="{!currentBooking.lsc__Event__r.lsc__Course__r.Name}" />
+                        </div>
+                    </div>
+                    
+                    <div class="course-name">
+                        <label>Course Dates</label>
+                        <div class="data">
+                            <lsc:outputDateTimeSObjectRangeExternal parentSObject="{!currentBooking.lsc__Event__r}" 
+                                                                    fieldName1="lsc__StartDateTime__c"
+                                                                    fieldName2="lsc__EndDateTime__c"
+                                                                    formatType="LEARNSMARTER"
+                                                                    dateTimeFormat="dd MMMM YYYY" 
+                                                                    hideTimeZone="true"  />
+                        </div>
+                    </div>
+                    
+                    <!-- Repeat over participants of item -->
+                    <apex:repeat value="{!participants}" var="participant">
+                        <div class="participant-block">
+                            <div class="participant-name">
+                                <apex:outputText value="{!participant.lsc__ParticipantName__c}" />
+                            </div>
+                            <div class="participant-field">
+                                <label>Dietary Requirements</label>
+                                <apex:inputTextArea rows="3" value="{!participant.Dietary_Requirements__c}" />
+                            </div>
+                            <div class="participant-field">
+                                <label>Accessibility Requirements</label>
+                                <apex:inputTextArea rows="3" value="{!participant.Accessibility_Requirements__c}" />
+                            </div>
+                        </div>
+                    </apex:repeat> 
+                    
+                    <div class="page-buttons">
+                        <apex:commandButton value="Save and Next" action="{!save}" styleClass="btn" />
+                    </div>
+                </apex:form>
+            </div>
+            
+        </apex:define>
+    </apex:composition>
+</apex:page>
