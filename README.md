@@ -95,6 +95,6 @@ And reference your custom save method in the Visualforce page:
 ```
 
 # Unit Tests
-We have provided a sample test class in this repository. These unit tests only apply to the example, and it is imperative the unit test your own code for successful deployments.
+We have provided a sample test class in this repository. These unit tests only apply to the example, and it is imperative that you unit test your own code for successful deployments.
 
 Worth noting is the setup method for creating test data. This will help create an order with registrations for your unit tests. Use/extend this to work with your code.
