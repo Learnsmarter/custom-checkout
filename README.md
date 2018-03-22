@@ -26,3 +26,31 @@ Open up the UX manager and go to Checkout Setup. At the bottom you will find a c
 
 #### Test
 Run through the checkout process and ensure that the page is displaying and working as expected.
+
+
+# Checkout Container API
+The checkout container API (`lsi.CheckoutContainerController`) is used to retrieve information and push for actions to happen within the checkout UI. The checkout container API must be used as the main controller for the Visualforce page, whereas your custom controller should be the extension.
+
+Here are the properties and methods available in the container API:
+
+Property | Type | Description
+---------|------|------------
+pageName | String | The name of the current page
+nextPage | String | The URL of the next page in the checkout flow
+prevPage | String | The URL of the previous page in the checkout flow
+OrderRecord | lsi__order__c | The sObject for the order record
+OrderBookings | lsc__booking__c | The list of registrations in the order
+UserContactRecord | Contact | The contact record for the current user
+UserAccountRecord | Account | The account record for the current user
+UserRecord | User | The user record for the current user
+isIndividualUser | Boolean | True if the user is an individual
+currentItemId | Id | ID of the current registration being displayed (based on itemId URL parameter)
+nextItemId | Id | ID of the next registration to be displayed
+
+Method | Return Type | Description
+-------|-------------|------------
+updateTimeout(String orderId) | Integer |  Move the expiration time further back
+prev(Boolean evaluateTax) | PageReference | Redirects to the previous page in the checkout flow (not the next item)
+next(Boolean evaluateTax) | PageReference | Redirects to the next page in the checkout flow (not the next item)
+evaluateTax() | void | Evaluate tax conditions and correct tax according to changes
+cancelOrder | PageReference | Delete the order and return to the basket
