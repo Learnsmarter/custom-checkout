@@ -39,7 +39,7 @@ pageName | String | The name of the current page
 nextPage | String | The URL of the next page in the checkout flow
 prevPage | String | The URL of the previous page in the checkout flow
 OrderRecord | lsi__order__c | The sObject for the order record
-OrderBookings | lsc__booking__c | The list of registrations in the order
+OrderBookings | List<lsc__booking__c> | The list of registrations in the order
 UserContactRecord | Contact | The contact record for the current user
 UserAccountRecord | Account | The account record for the current user
 UserRecord | User | The user record for the current user
@@ -50,7 +50,35 @@ nextItemId | Id | ID of the next registration to be displayed
 Method | Return Type | Description
 -------|-------------|------------
 updateTimeout(String orderId) | Integer |  Move the expiration time further back
-prev(Boolean evaluateTax) | PageReference | Redirects to the previous page in the checkout flow (not the next item)
-next(Boolean evaluateTax) | PageReference | Redirects to the next page in the checkout flow (not the next item)
+prev([Boolean evaluateTax]) | PageReference | Redirects to the previous page in the checkout flow (not the next item)
+next([Boolean evaluateTax]) | PageReference | Redirects to the next page in the checkout flow (not the next item)
 evaluateTax() | void | Evaluate tax conditions and correct tax according to changes
 cancelOrder() | PageReference | Delete the order and return to the basket
+
+
+#### Usage
+Make sure to set the container API to a property in your custom apex controller. You can then reference the properties and methods from there. You will need to do this in the constructor method of your class.
+
+```java
+private lsi.CheckoutContainerController container;
+
+/**
+ * Constructor method (has no return type and same name as controller).
+ * Set the container API to the property above.
+ */
+public ExampleController(lsi.CheckoutContainerController container) {
+  this.container = container;
+}
+```
+
+Once you have done this, you are free to use the properties and methods above as appropriate. For example, if you wanted to move to the next page in the checkout flow (please note that this does not mean the next item), you would do the following:
+
+```java
+/**
+ * Save the data and return the user to the next page in the
+ * the checkout flow.
+ */
+public PageReference save() {
+  return container.next();
+}
+```
