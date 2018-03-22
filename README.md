@@ -79,6 +79,13 @@ Once you have done this, you are free to use the properties and methods above as
  * the checkout flow.
  */
 public PageReference save() {
+  // ... DML operations go here
   return container.next();
 }
+```
+
+And reference your custom save method in the Visualforce page:
+
+```xml
+<apex:commandButton value="Save" action="{!save}" />
 ```
